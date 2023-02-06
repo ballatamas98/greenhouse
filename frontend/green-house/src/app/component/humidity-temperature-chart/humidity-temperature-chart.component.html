@@ -1,20 +1,20 @@
 <div class="row justify-content-center row-cols-1 m-0">
-  <div class="col d-flex justify-content-center mt-4">
-    <select [(ngModel)]="selectedPeriod" (change)="fetchChartData()">
-      <option *ngFor="let period of periods" [value]="period.code">
-        <div>
-          {{period.displayName}}
-        </div>
-      </option>
-    </select>
-  </div>
-  <div class="col d-flex justify-content-center mt-4">
-    <canvas class="chart" baseChart
-            [type]="'line'"
-            [data]="lineChartData"
-            [options]="lineChartOptions"
-            [legend]="lineChartLegend">
+    <div class="col d-flex justify-content-center mt-4">
+        <select [(ngModel)]="selectedPeriod" (change)="fetchChartData()">
+            <option *ngFor="let period of periods" [value]="period.code">
+                <div>
+                    {{period.displayName}}
+                </div>
+            </option>
+        </select>
+    </div>
+    <div class="col d-flex justify-content-center mt-4">
+        <canvas class="chart" baseChart
+                [type]="'line'"
+                [data]="lineChartData"
+                [options]="lineChartOptions"
+                [legend]="lineChartLegend">
 
-    </canvas>
-  </div>
+        </canvas>
+    </div>
 </div>
