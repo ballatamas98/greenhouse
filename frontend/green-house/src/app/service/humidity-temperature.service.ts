@@ -1,0 +1,17 @@
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {HumidityTemperatureDataModel} from "../models/humidity-temperature-data.model";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HumidityTemperatureService {
+
+  constructor(private http: HttpClient) {
+  }
+
+  fetchData(period: string): Observable<Array<HumidityTemperatureDataModel>> {
+    return this.http.get<Array<HumidityTemperatureDataModel>>('http://192.168.1.100/api/humidity-temperatures/get-data' + '/' + period);
+  }
+}
