@@ -1,37 +1,34 @@
 package dev.gtomi.greenhouse.domain;
 
-
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "humidity_temperature")
+@Table(name = "sensore")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
-public class HumidityTemperature {
+public class Sensor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column
-    private Double humidity;
-    @Column
-    private Double temperature;
-    @Column
-    private LocalDateTime date;
 
+    @Column
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "sensor_id")
+    @Column
+    private String ip;
+
+    @OneToMany(mappedBy = "sensor", orphanRemoval = true)
     @Nullable
-    private Sensor sensor;
+    private List<HumidityTemperature> humidityTemperatures = new ArrayList<>();
+
 
 }

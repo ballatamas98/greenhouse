@@ -14,8 +14,10 @@ public interface HumidityTemperatureRepository extends JpaRepository<HumidityTem
 
     @Query(value = "select * from humidity_temperature as ht where CAST( ht.date AS DATE ) = CURDATE() ", nativeQuery = true)
     List<HumidityTemperature> findByDateToday();
+
     @Query(value = "select * from humidity_temperature as ht where CAST( ht.date AS DATE ) = subdate(curdate(), 1) ", nativeQuery = true)
     List<HumidityTemperature> findByDateYesterday();
+
     @Query(value = "select * from humidity_temperature as ht where CAST( ht.date AS DATE ) between subdate(curdate(), 7) and subdate(curdate(), 1) ", nativeQuery = true)
     List<HumidityTemperature> findByDatePastWeek();
 }

@@ -2,6 +2,7 @@ package dev.gtomi.greenhouse.service;
 
 import dev.gtomi.greenhouse.domain.HumidityTemperature;
 import dev.gtomi.greenhouse.repository.HumidityTemperatureRepository;
+import dev.gtomi.greenhouse.repository.SensorRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,11 +17,13 @@ import java.time.LocalDateTime;
 public class CrawlService {
 
     private final HumidityTemperatureRepository humidityTemperatureRepository;
+    private final SensorRepository sensorRepository;
 
     private static String sensorIp;
 
-    public CrawlService(HumidityTemperatureRepository humidityTemperatureRepository) {
+    public CrawlService(HumidityTemperatureRepository humidityTemperatureRepository, SensorRepository sensorRepository) {
         this.humidityTemperatureRepository = humidityTemperatureRepository;
+        this.sensorRepository = sensorRepository;
         setSensorIp(sensorIp);
     }
 
@@ -36,6 +39,7 @@ public class CrawlService {
         humidityTemperature.setDate(LocalDateTime.now());
         humidityTemperature.setTemperature(crawlTemperature());
         humidityTemperature.setHumidity(crawlHumidity());
+        humidityTemperature.setSensor(sensorRepository.findByIp(sensorIp).orElse(null));
 
         return humidityTemperature;
     }
